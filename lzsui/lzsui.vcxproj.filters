@@ -30,6 +30,9 @@
     <ClInclude Include="include\lzsui\stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\lzsui\lui-window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\lui-application.cpp">

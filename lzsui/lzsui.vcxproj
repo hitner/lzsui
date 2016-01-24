@@ -130,6 +130,7 @@
     <ClInclude Include="include\lzsui\lui-application.h" />
     <ClInclude Include="include\lzsui\lui-library.h" />
     <ClInclude Include="include\lzsui\lui-white-window.h" />
+    <ClInclude Include="include\lzsui\lui-window.h" />
     <ClInclude Include="include\lzsui\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
