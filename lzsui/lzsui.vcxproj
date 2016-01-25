@@ -76,7 +76,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>include\lzsui</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;include\lzsui</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -96,11 +96,12 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;include\lzsui</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -132,10 +133,12 @@
     <ClInclude Include="include\lzsui\lui-white-window.h" />
     <ClInclude Include="include\lzsui\lui-window.h" />
     <ClInclude Include="include\lzsui\stdafx.h" />
+    <ClInclude Include="utility\lzs-debug.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\lui-application.cpp" />
-    <ClCompile Include="src\stdafx.cpp" />
+    <ClCompile Include="core\lui-application.cpp" />
+    <ClCompile Include="core\lui-window.cpp" />
+    <ClCompile Include="core\stdafx.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

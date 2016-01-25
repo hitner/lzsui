@@ -22,7 +22,7 @@ namespace lui {
 
 	int LuiApplication::run()
 	{
-		rootWindow_ = new LuiWindow;
+		//rootWindow_ = new LuiWindow;
 
 		return 0;
 	}
