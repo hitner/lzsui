@@ -10,5 +10,5 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 	SimpleWindowDelegate windowDelegate;
-	return lui::LuiRunApplication(hInstance, nCmdShow, &windowDelegate);
+	return lui::LuiRunApplication(hInstance, nCmdShow, windowDelegate);
 }

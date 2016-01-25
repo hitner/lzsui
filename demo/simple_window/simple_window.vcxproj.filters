@@ -18,6 +18,9 @@
     <ClCompile Include="simple_window\simple_window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="simple_window\SimpleWindowDelegate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="simple_window\stdafx.h">

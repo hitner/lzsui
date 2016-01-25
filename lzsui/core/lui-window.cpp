@@ -56,10 +56,7 @@ namespace lui
 			(LPCWSTR)atom_, L"lzsui_window",
 			 WS_TABSTOP | WS_OVERLAPPED, 
 			CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, hInstance_, NULL); //default size overlapped window with layered
-		if (hWnd == NULL) {
-
-		}
-		assert(hWnd);
+		SystemFunctionAssert(hWnd);
 		return hWnd;
 	}
 	LuiWindowFactory * LuiWindowFactory::Instance()
