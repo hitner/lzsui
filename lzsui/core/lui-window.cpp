@@ -12,6 +12,14 @@ namespace lui
 	LuiWindow::~LuiWindow()
 	{
 	}
+	void LuiWindow::ShowWindow(bool visible)
+	{
+		::ShowWindow(hWnd_, visible);
+	}
+	void LuiWindow::UpdateWindow()
+	{
+		::UpdateWindow(hWnd_);
+	}
 	//------------------------------\\
 	// the most important WndProc   \\
 	//------------------------------\\

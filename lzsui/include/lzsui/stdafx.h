@@ -14,3 +14,4 @@
 
 #include <memory>
 #include <cassert>
+#include <list>

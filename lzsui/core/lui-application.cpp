@@ -23,8 +23,27 @@ namespace lui {
 	int LuiApplication::run()
 	{
 		//rootWindow_ = new LuiWindow;
+		
+		if (!LuiWindowFactory::Instance()->Init(hInstance_)) {
+			return 1;
+		}
 
-		return 0;
+		shared_ptr<LuiWindow> hostWnd = LuiWindowFactory::Instance()->CreateLuiWindow();
+		hostWnd->ShowWindow(nCmdShow_);
+		hostWnd->UpdateWindow();
+
+
+		MSG msg;
+		while (::GetMessage(&msg, NULL, 0, 0))
+		{
+			if (!::TranslateAccelerator(msg.hwnd, NULL, &msg))
+			{
+				::TranslateMessage(&msg);
+				::DispatchMessage(&msg);
+			}
+		}
+
+		return (int)msg.wParam;
 	}
 
 }

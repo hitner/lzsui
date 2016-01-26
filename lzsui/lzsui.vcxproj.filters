@@ -36,6 +36,9 @@
     <ClInclude Include="utility\lzs-debug.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\lzsui\lui-view.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\lui-application.cpp">
