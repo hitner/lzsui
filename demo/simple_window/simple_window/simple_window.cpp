@@ -9,6 +9,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 {
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
-	std::shared_ptr<SimpleWindowDelegate> windowDelegate(new SimpleWindowDelegate);
+	std::shared_ptr<LuiApplicationDelegate> windowDelegate(new SimpleWindowDelegate);
 	return lui::LuiRunApplication(hInstance, nCmdShow, windowDelegate);
 }

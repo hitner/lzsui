@@ -12,10 +12,14 @@ namespace lui
 	LuiWindow::~LuiWindow()
 	{
 	}
-	void LuiWindow::ShowWindow(bool visible)
+	void LuiWindow::ShowWindow(int nCmdShow)
 	{
-		::ShowWindow(hWnd_, visible);
+		::ShowWindow(hWnd_, nCmdShow);
 	}
+	//void LuiWindow::ShowWindow(bool visible)
+	//{
+	//	::ShowWindow(hWnd_, visible);
+	//}
 	void LuiWindow::UpdateWindow()
 	{
 		::UpdateWindow(hWnd_);
@@ -26,6 +30,14 @@ namespace lui
 
 	LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
+		switch (message)
+		{
+		case WM_DESTROY:
+			::PostQuitMessage(0);
+			break;
+		default:
+			return DefWindowProc(hWnd, message, wParam, lParam);
+		}
 		return 0;
 	}
 
@@ -60,9 +72,9 @@ namespace lui
 	HWND LuiWindowFactory::createWindow()
 	{
 		assert(atom_);
-		HWND hWnd = ::CreateWindowEx(WS_EX_LAYERED, 
-			(LPCWSTR)atom_, L"lzsui_window",
-			 WS_TABSTOP | WS_OVERLAPPED, 
+		HWND hWnd = ::CreateWindowEx(0, 
+			C_RegisterClassName, L"lzsui_window",
+			 WS_TABSTOP | WS_OVERLAPPEDWINDOW, //system default style, can be removed later
 			CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, hInstance_, NULL); //default size overlapped window with layered
 		SystemFunctionAssert(hWnd);
 		return hWnd;

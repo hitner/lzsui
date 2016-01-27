@@ -6,7 +6,8 @@ namespace lui
 	class LuiWindow {
 	public:
 		~LuiWindow();
-		void ShowWindow(bool visible);
+		void ShowWindow(int nCmdShow);
+		//void ShowWindow(bool visible);
 		void UpdateWindow();
 	protected:
 		LuiWindow(HWND hWnd);

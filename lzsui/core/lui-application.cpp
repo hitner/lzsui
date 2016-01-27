@@ -3,7 +3,8 @@
 #include "lui-window.h"
 
 using namespace std;
-namespace lui {
+namespace lui 
+{
 	
 	int LuiRunApplication(HINSTANCE hInstance, int nCmdShow, std::shared_ptr<LuiApplicationDelegate> appDelegate) 
 	{

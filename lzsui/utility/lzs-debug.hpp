@@ -24,7 +24,7 @@ void PrintLastErrorMessage()
 	DWORD dwError = ::GetLastError();
 	HLOCAL hLocal = NULL;
 	BOOL fOk = ::FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS | FORMAT_MESSAGE_ALLOCATE_BUFFER,
-		NULL, dwError, MAKELANGID(LANG_NEUTRAL, SUBLANG_NEUTRAL), (LPWSTR)hLocal, 0, NULL);
+		NULL, dwError, MAKELANGID(LANG_NEUTRAL, SUBLANG_NEUTRAL), (LPWSTR)&hLocal, 0, NULL);
 	if (fOk && (hLocal != NULL)) {
 		::OutputDebugString((LPCWSTR)LocalLock(hLocal));
 		::LocalUnlock(hLocal);

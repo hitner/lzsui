@@ -2,8 +2,11 @@
 #include "stdafx.h"
 
 
-namespace lui {
+namespace lui 
+{
 	class LuiWindow;
+	class LuiApplicationDelegate;
+	int LuiRunApplication(HINSTANCE hInstance, int nCmdShow, std::shared_ptr<LuiApplicationDelegate> appDelegate);
 
 	
 	class LuiApplicationDelegate {
@@ -21,7 +24,7 @@ namespace lui {
 	};
 
 
-	int LuiRunApplication(HINSTANCE hInstance, int nCmdShow,std::shared_ptr<LuiApplicationDelegate> appDelegate);
+
 
 	class LuiApplication {
 	public:
