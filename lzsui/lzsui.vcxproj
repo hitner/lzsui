@@ -128,6 +128,10 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="core\l-bitmap.h" />
+    <ClInclude Include="core\li-canvas.h" />
+    <ClInclude Include="core\l-gdi-canvas.h" />
+    <ClInclude Include="core\l-window-canvas.h" />
     <ClInclude Include="include\lzsui\lui-application.h" />
     <ClInclude Include="include\lzsui\lui-library.h" />
     <ClInclude Include="include\lzsui\lui-view.h" />
@@ -135,11 +139,17 @@
     <ClInclude Include="include\lzsui\lui-window.h" />
     <ClInclude Include="include\lzsui\stdafx.h" />
     <ClInclude Include="utility\lzs-debug.hpp" />
+    <ClInclude Include="utility\lzs-file.hpp" />
+    <ClInclude Include="utility\xml\tinyxml2.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="core\l-bitmap.cpp" />
+    <ClCompile Include="core\l-gdi-canvas.cpp" />
+    <ClCompile Include="core\l-window-canvas.cpp" />
     <ClCompile Include="core\lui-application.cpp" />
     <ClCompile Include="core\lui-window.cpp" />
     <ClCompile Include="core\stdafx.cpp" />
+    <ClCompile Include="utility\xml\tinyxml2.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

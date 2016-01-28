@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "lui-window.h"
+#include "l-gdi-canvas.h"
 #include "utility\lzs-debug.hpp"
+
+using namespace std;
 namespace lui
 {
 
@@ -8,9 +11,29 @@ namespace lui
 		: hWnd_(hWnd)
 	{
 		assert(hWnd_);
+		::SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG_PTR)this);
+		windowCanvas_.reset(new LGdiCanvas(hWnd));
 	}
 	LuiWindow::~LuiWindow()
 	{
+	}
+	void LuiWindow::OnSize(WPARAM wParam, LPARAM lParam)
+	{
+		clientSize_.cx = HIWORD(lParam);
+		clientSize_.cy = LOWORD(lParam);
+		switch (wParam)
+		{
+		case SIZE_MAXIMIZED: 
+			sizeState_ = SS_MAXIMIZE;
+			break;
+		case SIZE_MINIMIZED:
+			sizeState_ = SS_MINIMIZE;
+			break;
+		default:
+			sizeState_ = SS_OTHER;
+			break;
+		}
+		windowCanvas_->OnSize(clientSize_);
 	}
 	void LuiWindow::ShowWindow(int nCmdShow)
 	{
@@ -28,12 +51,21 @@ namespace lui
 	// the most important WndProc   \\
 	//------------------------------\\
 
-	LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+	LRESULT CALLBACK LuiWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
+		LONG_PTR pWnd = ::GetWindowLongPtr(hWnd, GWLP_USERDATA);
+		std::shared_ptr<LuiWindow> lWindow(reinterpret_cast<LuiWindow*>(pWnd));
+		if (!lWindow) {
+			return DefWindowProc(hWnd, message, wParam, lParam);
+		}
+
 		switch (message)
 		{
 		case WM_DESTROY:
 			::PostQuitMessage(0);
+			break;
+		case WM_SIZE:
+			lWindow->OnSize(wParam, lParam);
 			break;
 		default:
 			return DefWindowProc(hWnd, message, wParam, lParam);
@@ -56,7 +88,7 @@ namespace lui
 		WNDCLASSEX wcex;
 		wcex.cbSize = sizeof(WNDCLASSEX);
 		wcex.style = CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS;
-		wcex.lpfnWndProc = WndProc;
+		wcex.lpfnWndProc = LuiWindow::WndProc;
 		wcex.cbClsExtra = 0;
 		wcex.cbWndExtra = 0;
 		wcex.hInstance = hInstance_;

@@ -39,6 +39,24 @@
     <ClInclude Include="include\lzsui\lui-view.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="core\l-bitmap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\l-gdi-canvas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\l-window-canvas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\li-canvas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\lzs-file.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\xml\tinyxml2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\lui-application.cpp">
@@ -48,6 +66,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="core\stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\l-bitmap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\l-gdi-canvas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\l-window-canvas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\xml\tinyxml2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

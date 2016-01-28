@@ -4,7 +4,7 @@
 #include <cassert>
 
 #ifdef _DEBUG
-void PrintToVSOutputWindow(wchar_t * format, ...)
+inline void PrintToVSOutputWindow(wchar_t * format, ...)
 {
 	va_list args;
 	va_start(args, format);
@@ -14,12 +14,12 @@ void PrintToVSOutputWindow(wchar_t * format, ...)
 	va_end(args);
 }
 #else
-void PrintToVSOutputWindow(wchar_t * format, ...)
+inline void PrintToVSOutputWindow(wchar_t * format, ...)
 { }
 #endif
 
 #ifdef _DEBUG
-void PrintLastErrorMessage()
+inline void PrintLastErrorMessage()
 {
 	DWORD dwError = ::GetLastError();
 	HLOCAL hLocal = NULL;
@@ -33,7 +33,7 @@ void PrintLastErrorMessage()
 	}
 }
 #else
-void PrintLastErrorMessage()
+inline void PrintLastErrorMessage()
 {
 }
 #endif
