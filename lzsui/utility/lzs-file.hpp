@@ -13,6 +13,7 @@ int read_file(const wchar_t * filename, void * buf, size_t bufsize)
 	}
 	FILE * stream = NULL;
 	errno_t error = _wfopen_s(&stream, filename, L"rb");
+	assert(error == 0);
 	size_t readnum = 0;
 	if (error == 0) {
 		readnum = fread_s(buf, bufsize, 1, bufsize, stream);

@@ -7,6 +7,6 @@ namespace lui
 	{
 	public:
 		LGdiCanvas(HWND hWnd);
-		virtual void DrawBitmap(LPCRECT pDestRect, LBitmap * bitmap, POINT src, BYTE alpha);
+		virtual bool DrawBitmap(const LRect & rect, HBITMAP bitmap, const LPoint & ori, BYTE alpha);
 	};
 }

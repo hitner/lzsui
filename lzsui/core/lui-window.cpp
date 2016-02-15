@@ -3,17 +3,22 @@
 #include "l-gdi-canvas.h"
 #include "utility\lzs-debug.hpp"
 
+#include "utility\png\fluid.h"
+#include "utility\lzs-file.hpp"
+
 using namespace std;
 namespace lui
 {
 
 	LuiWindow::LuiWindow(HWND hWnd)
 		: hWnd_(hWnd)
+		, bm(NULL)
 	{
 		assert(hWnd_);
 		::SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG_PTR)this);
-		windowCanvas_.reset(new LGdiCanvas(hWnd));
+		canvas_.reset(new LGdiCanvas(hWnd));
 	}
+
 	LuiWindow::~LuiWindow()
 	{
 	}
@@ -33,7 +38,33 @@ namespace lui
 			sizeState_ = SS_OTHER;
 			break;
 		}
-		windowCanvas_->OnSize(clientSize_);
+		canvas_->OnSize(clientSize_);
+	}
+	void LuiWindow::OnPaint(WPARAM wParam, LPARAM lParam)
+	{
+		PAINTSTRUCT ps;
+		HDC hdc = ::BeginPaint(hWnd_, &ps);
+		RECT rcPaint = ps.rcPaint;
+		DoPaint(rcPaint);
+		LRect rect(0, 0, 640, 480);
+		LPoint ori(0, 0);
+		HDC hmem = ::CreateCompatibleDC(hdc);
+		::SelectObject(hmem, bm);
+		BOOL lOK = ::StretchBlt(hdc, rect.x, rect.y, rect.width, rect.height, hmem, ori.x, ori.y, rect.width, rect.height, SRCCOPY);
+		//::BitBlt(hdc, rcPaint.left, rcPaint.top, rcPaint.right - rcPaint.left, rcPaint.bottom - rcPaint.top
+		//	, canvas_->GetMemoryDC(), rcPaint.left, rcPaint.top, SRCCOPY);
+		::DeleteDC(hmem);
+		::EndPaint(hWnd_, &ps);
+	}
+	bool LuiWindow::SetViewController(std::shared_ptr<LuiViewController> viewCtrl)
+	{
+		assert(viewCtrl);
+		viewController_ = viewCtrl;
+		return false;
+	}
+	auto LuiWindow::GetViewController()
+	{
+		return viewController_;
 	}
 	void LuiWindow::ShowWindow(int nCmdShow)
 	{
@@ -47,6 +78,45 @@ namespace lui
 	{
 		::UpdateWindow(hWnd_);
 	}
+
+	void LuiWindow::DoPaint(RECT rc)
+	{
+		//HBITMAP bm = NULL;
+		
+		if (!bm) {
+			void * bmbit;
+			int bufSize = 1 * 1024 * 1024;
+			char * buf = new char [bufSize];// max 4M png
+			int readnum = read_file(L"E:\\lzsui\\prelive.png", buf, bufSize);
+			int width, height;
+			char * decoded = fluid_decode(buf, readnum, &width, &height);
+			delete[] buf;
+			buf = NULL;
+			rgba2argb(decoded, width, height);
+
+			BITMAPINFO bmi;
+			memset(&bmi, 0, sizeof(bmi));
+			bmi.bmiHeader.biSize	= sizeof(BITMAPINFOHEADER);
+			bmi.bmiHeader.biWidth = width;
+			bmi.bmiHeader.biHeight = -height;
+			bmi.bmiHeader.biPlanes = 1;
+			bmi.bmiHeader.biBitCount = 32;
+			bmi.bmiHeader.biCompression = BI_RGB;
+			bmi.bmiHeader.biSizeImage = 0; // it was not used in BI_RGB mode
+			bm = ::CreateDIBSection(NULL, &bmi, DIB_RGB_COLORS, &bmbit, NULL, 0);
+			assert(bmbit);
+			memcpy(bmbit, decoded, width * height * 4);
+			
+		}
+		//static int x = 0;
+		//static int y = 0;
+		//x += 50;
+		//y += 50;
+
+		//canvas_->DrawBitmap(LRect(x,y,640,480), bm, LPoint(), 0xFF);
+
+	}
+
 	//------------------------------\\
 	// the most important WndProc   \\
 	//------------------------------\\
@@ -54,7 +124,7 @@ namespace lui
 	LRESULT CALLBACK LuiWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
 		LONG_PTR pWnd = ::GetWindowLongPtr(hWnd, GWLP_USERDATA);
-		std::shared_ptr<LuiWindow> lWindow(reinterpret_cast<LuiWindow*>(pWnd));
+		LuiWindow *lWindow = reinterpret_cast<LuiWindow*>(pWnd);
 		if (!lWindow) {
 			return DefWindowProc(hWnd, message, wParam, lParam);
 		}
@@ -66,6 +136,9 @@ namespace lui
 			break;
 		case WM_SIZE:
 			lWindow->OnSize(wParam, lParam);
+			break;
+		case WM_PAINT:
+			lWindow->OnPaint(wParam, lParam);
 			break;
 		default:
 			return DefWindowProc(hWnd, message, wParam, lParam);

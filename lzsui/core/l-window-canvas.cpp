@@ -8,6 +8,8 @@ namespace lui
 
 	LWindowCanvas::LWindowCanvas(HWND hWnd)
 		: hWnd_(hWnd)
+		, hCompatibleDC_(NULL)
+		, hBitmap_(NULL)
 	{
 		assert(hWnd);
 		HDC hdc = ::GetDC(hWnd);

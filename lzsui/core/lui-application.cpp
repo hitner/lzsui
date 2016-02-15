@@ -28,10 +28,10 @@ namespace lui
 		if (!LuiWindowFactory::Instance()->Init(hInstance_)) {
 			return 1;
 		}
-
-		shared_ptr<LuiWindow> hostWnd = LuiWindowFactory::Instance()->CreateLuiWindow();
-		hostWnd->ShowWindow(nCmdShow_);
-		hostWnd->UpdateWindow();
+		auto appDele = delegate_.lock();
+		if (appDele) {
+			appDele->WillEnterGetMessageLoop(nCmdShow_);
+		}
 
 
 		MSG msg;

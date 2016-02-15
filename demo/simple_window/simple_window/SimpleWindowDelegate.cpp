@@ -1,7 +1,13 @@
+
+#include "lzsui\lui-window.h"
 #include "SimpleWindowDelegate.h"
 
 using namespace lui;
-LuiApplicationDelegate::LuiWindowInfo SimpleWindowDelegate::GetWindowInfo()
+
+void SimpleWindowDelegate::WillEnterGetMessageLoop(int nCmdShow)
 {
-	return LuiWindowInfo();
+
+	hostWindow_ = LuiWindowFactory::Instance()->CreateLuiWindow();
+	hostWindow_->ShowWindow(nCmdShow);
+	hostWindow_->UpdateWindow();
 }

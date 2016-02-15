@@ -14,10 +14,10 @@ namespace lui
 		struct LuiWindowInfo {
 			RECT rect_;
 		};
-		virtual void WillCreateWindow() {}
-		virtual  LuiWindowInfo GetWindowInfo() = 0;
-		virtual void DidCreateWindow(std::shared_ptr<LuiWindow> lWindow) {};
-		virtual void WillEnterGetMessageLoop() {};
+		//virtual void WillCreateWindow() {}
+		//virtual  LuiWindowInfo GetWindowInfo() = 0;
+		//virtual void DidCreateWindow(std::shared_ptr<LuiWindow> lWindow) {};
+		virtual void WillEnterGetMessageLoop(int nCmdShow) {};
 		virtual void WillSendQuitMessage() {};
 		virtual void DidEndGetMessageLoop() {};
 
