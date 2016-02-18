@@ -63,6 +63,12 @@
     <ClInclude Include="include\lzsui\l-common.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\lzsui\lui-view-controller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\lzsui\lui-image-view.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\lui-application.cpp">
@@ -87,6 +93,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="utility\png\fluid.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\lui-view-controller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\lui-view.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\lui-image-view.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

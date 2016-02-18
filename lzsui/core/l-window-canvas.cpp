@@ -23,11 +23,11 @@ namespace lui
 		return hCompatibleDC_;
 	}
 
-	void LWindowCanvas::OnSize(SIZE size)
+	void LWindowCanvas::OnSize(LSize size)
 	{
 		//select a new bitmap into it
 		HDC hdc = ::GetDC(hWnd_);
-		HBITMAP newBitmap = ::CreateCompatibleBitmap(hdc, size.cx, size.cy);
+		HBITMAP newBitmap = ::CreateCompatibleBitmap(hdc, size.width, size.height);
 		::SelectObject(hCompatibleDC_, newBitmap);
 		::ReleaseDC(hWnd_, hdc);
 		if (hBitmap_) {

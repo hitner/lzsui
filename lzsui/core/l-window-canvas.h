@@ -10,8 +10,8 @@ namespace lui
 	{
 	public:
 		LWindowCanvas(HWND hWnd);
-		virtual HDC GetMemoryDC();
-		virtual void OnSize(SIZE size);
+		virtual HDC GetMemoryDC() override;
+		virtual void OnSize(LSize size) override;
 		
 	protected:
 		HWND hWnd_;

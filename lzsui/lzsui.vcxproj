@@ -134,7 +134,9 @@
     <ClInclude Include="core\l-window-canvas.h" />
     <ClInclude Include="include\lzsui\l-common.h" />
     <ClInclude Include="include\lzsui\lui-application.h" />
+    <ClInclude Include="include\lzsui\lui-image-view.h" />
     <ClInclude Include="include\lzsui\lui-library.h" />
+    <ClInclude Include="include\lzsui\lui-view-controller.h" />
     <ClInclude Include="include\lzsui\lui-view.h" />
     <ClInclude Include="include\lzsui\lui-white-window.h" />
     <ClInclude Include="include\lzsui\lui-window.h" />
@@ -149,6 +151,9 @@
     <ClCompile Include="core\l-gdi-canvas.cpp" />
     <ClCompile Include="core\l-window-canvas.cpp" />
     <ClCompile Include="core\lui-application.cpp" />
+    <ClCompile Include="core\lui-image-view.cpp" />
+    <ClCompile Include="core\lui-view-controller.cpp" />
+    <ClCompile Include="core\lui-view.cpp" />
     <ClCompile Include="core\lui-window.cpp" />
     <ClCompile Include="core\stdafx.cpp" />
     <ClCompile Include="utility\png\fluid.c" />

@@ -1,10 +1,10 @@
 #include "stdafx.h"
 #include "lui-window.h"
 #include "l-gdi-canvas.h"
+#include "lui-view.h"
 #include "utility\lzs-debug.hpp"
 
-#include "utility\png\fluid.h"
-#include "utility\lzs-file.hpp"
+
 
 using namespace std;
 namespace lui
@@ -12,7 +12,6 @@ namespace lui
 
 	LuiWindow::LuiWindow(HWND hWnd)
 		: hWnd_(hWnd)
-		, bm(NULL)
 	{
 		assert(hWnd_);
 		::SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG_PTR)this);
@@ -24,8 +23,8 @@ namespace lui
 	}
 	void LuiWindow::OnSize(WPARAM wParam, LPARAM lParam)
 	{
-		clientSize_.cx = HIWORD(lParam);
-		clientSize_.cy = LOWORD(lParam);
+		clientSize_.width = LOWORD(lParam);
+		clientSize_.height =  HIWORD(lParam);
 		switch (wParam)
 		{
 		case SIZE_MAXIMIZED: 
@@ -46,25 +45,23 @@ namespace lui
 		HDC hdc = ::BeginPaint(hWnd_, &ps);
 		RECT rcPaint = ps.rcPaint;
 		DoPaint(rcPaint);
-		LRect rect(0, 0, 640, 480);
-		LPoint ori(0, 0);
-		HDC hmem = ::CreateCompatibleDC(hdc);
-		::SelectObject(hmem, bm);
-		BOOL lOK = ::StretchBlt(hdc, rect.x, rect.y, rect.width, rect.height, hmem, ori.x, ori.y, rect.width, rect.height, SRCCOPY);
-		//::BitBlt(hdc, rcPaint.left, rcPaint.top, rcPaint.right - rcPaint.left, rcPaint.bottom - rcPaint.top
-		//	, canvas_->GetMemoryDC(), rcPaint.left, rcPaint.top, SRCCOPY);
-		::DeleteDC(hmem);
+		//LRect rect(0, 0, 640, 480);
+		//LPoint ori(0, 0);
+		//HDC hmem = ::CreateCompatibleDC(hdc);
+		//::SelectObject(hmem, bm);
+		//::StretchBlt(hdc, rect.x, rect.y, rect.width, rect.height, hmem, ori.x, ori.y, rect.width, rect.height, SRCCOPY);
+		BOOL lOK = ::BitBlt(hdc, rcPaint.left, rcPaint.top, rcPaint.right - rcPaint.left, rcPaint.bottom - rcPaint.top
+			, canvas_->GetMemoryDC(), rcPaint.left, rcPaint.top, SRCCOPY);
+		//::DeleteDC(hmem);
 		::EndPaint(hWnd_, &ps);
 	}
-	bool LuiWindow::SetViewController(std::shared_ptr<LuiViewController> viewCtrl)
+	void LuiWindow::SetView(std::shared_ptr<LuiView> view)
 	{
-		assert(viewCtrl);
-		viewController_ = viewCtrl;
-		return false;
+		view_ = view;
 	}
-	auto LuiWindow::GetViewController()
+	auto LuiWindow::View()
 	{
-		return viewController_;
+		return view_;
 	}
 	void LuiWindow::ShowWindow(int nCmdShow)
 	{
@@ -82,39 +79,7 @@ namespace lui
 	void LuiWindow::DoPaint(RECT rc)
 	{
 		//HBITMAP bm = NULL;
-		
-		if (!bm) {
-			void * bmbit;
-			int bufSize = 1 * 1024 * 1024;
-			char * buf = new char [bufSize];// max 4M png
-			int readnum = read_file(L"E:\\lzsui\\prelive.png", buf, bufSize);
-			int width, height;
-			char * decoded = fluid_decode(buf, readnum, &width, &height);
-			delete[] buf;
-			buf = NULL;
-			rgba2argb(decoded, width, height);
-
-			BITMAPINFO bmi;
-			memset(&bmi, 0, sizeof(bmi));
-			bmi.bmiHeader.biSize	= sizeof(BITMAPINFOHEADER);
-			bmi.bmiHeader.biWidth = width;
-			bmi.bmiHeader.biHeight = -height;
-			bmi.bmiHeader.biPlanes = 1;
-			bmi.bmiHeader.biBitCount = 32;
-			bmi.bmiHeader.biCompression = BI_RGB;
-			bmi.bmiHeader.biSizeImage = 0; // it was not used in BI_RGB mode
-			bm = ::CreateDIBSection(NULL, &bmi, DIB_RGB_COLORS, &bmbit, NULL, 0);
-			assert(bmbit);
-			memcpy(bmbit, decoded, width * height * 4);
-			
-		}
-		//static int x = 0;
-		//static int y = 0;
-		//x += 50;
-		//y += 50;
-
-		//canvas_->DrawBitmap(LRect(x,y,640,480), bm, LPoint(), 0xFF);
-
+		view_->DoPaint(canvas_, LPoint(0,0), LRect(rc));
 	}
 
 	//------------------------------\\

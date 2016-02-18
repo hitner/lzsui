@@ -1,11 +1,12 @@
 #pragma once
 #include "stdafx.h"
+#include "l-common.h"
 
 namespace lui
 {
 	class LICanvas;
 	class LuiView;
-	class LuiViewController;
+	//class LuiViewController;
 
 	class LuiWindow {
 	public:
@@ -14,28 +15,29 @@ namespace lui
 		//void ShowWindow(bool visible);
 		void UpdateWindow();
 
+		void LuiWindow::SetView(std::shared_ptr<LuiView> view);
+		auto View();
+
 		//handle to window messages 
 		void OnSize(WPARAM wParam, LPARAM lParam);
 		void OnPaint(WPARAM wParam, LPARAM lParam);
-
-		bool SetViewController(std::shared_ptr<LuiViewController> viewCtrl);
-		auto GetViewController();
 
 	protected:
 		LuiWindow(HWND hWnd);
 
 		//will do internal things
 		void DoPaint(RECT rc);
+	public:
+		//std::shared_ptr<LuiViewController> viewController_;
 	protected:
 		enum Wnd_Size_State {SS_OTHER = 0, SS_MINIMIZE, SS_MAXIMIZE};
 		//HINSTANCE hInstance_;
 		HWND hWnd_;
-		std::unique_ptr<LICanvas> canvas_;
-		SIZE clientSize_;
+		std::shared_ptr<LICanvas> canvas_;
+		LSize clientSize_;
 		Wnd_Size_State sizeState_;
-		HBITMAP bm;
+		std::shared_ptr<LuiView> view_;
 
-		std::shared_ptr<LuiViewController> viewController_;
 		static LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 		friend class LuiWindowFactory; //make sure only the LuiWindowFactory can create LuiWindow instance
 	};

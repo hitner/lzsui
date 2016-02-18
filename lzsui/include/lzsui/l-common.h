@@ -18,6 +18,13 @@ namespace lui
 			x = pt.x;
 			y = pt.y;
 		}
+
+		LPoint operator + (const LPoint& pt) const {
+			LPoint a;
+			a.x = x + pt.x;
+			a.y = y + pt.y;
+			return a;
+		}
 	};
 
 	struct LSize
@@ -53,20 +60,20 @@ namespace lui
 			height = rc.bottom - rc.top;
 		}
 
-		lt_int right() {
+		lt_int right() const{
 			return x + width;
 		}
-		lt_int bottom() {
+		lt_int bottom() const{
 			return y + height;
 		}
-		LSize size() {
+		LSize size() const{
 			return LSize(width, height);
 		}
-		LPoint origin() {
+		LPoint origin() const{
 			return LPoint(x, y);
 		}
 
-		RECT operator() () {
+		operator RECT () {
 			RECT rc;
 			rc.left = x;
 			rc.right = x + width;
@@ -74,8 +81,47 @@ namespace lui
 			rc.bottom = y + height;
 			return rc;
 		}
+		operator RECT () const{
+			RECT rc;
+			rc.left = x;
+			rc.right = x + width;
+			rc.top = y;
+			rc.bottom = y + height;
+			return rc;
+		}
+
+
+		LRect operator & (const LRect & rect) const{
+			RECT r1 = RECT(*this);
+			const RECT r2 = RECT(rect);
+			RECT rslt;
+			::IntersectRect(&rslt, &r1, &r2);
+			return rslt;
+		}
+		LRect operator + (const LPoint & pt) const {
+			LRect rc(*this);
+			rc.x += pt.x;
+			rc.y += pt.y;
+			return rc;
+		}
+
+		LRect operator - (const LPoint & pt) const {
+			LRect rc(*this);
+			rc.x -= pt.x;
+			rc.y -= pt.y;
+			return rc;
+		}
+
+		bool IsEmpty() const {
+			return (width == 0 && height == 0);
+		}
 	};
 
+	struct LRoundRect : public LRect
+	{
+		lt_int roundWidth;
+		lt_int roundHeight;
+	};
 	struct LColor {
 		unsigned char red;
 		unsigned char green;
@@ -88,5 +134,13 @@ namespace lui
 			blue = 0x00FF & (x >> 8);
 			alpha = 0x00FF & x;
 		}
+
+		inline static LColor RedColor() {
+			return LColor(0xFF000000);
+		}
+		inline static LColor TransparentColor() {
+			return LColor(0xFFFFFF00);
+		}
+
 	};
 }
