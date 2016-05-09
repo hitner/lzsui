@@ -9,7 +9,9 @@ namespace lui
 	{
 	}
 
-	LuiView::LuiView(const LRect & frame): frame_(frame)
+	LuiView::LuiView(const LRect & frame)
+		: frame_(frame)
+		, borderWidth_(0)
 	{
 		
 	}
@@ -46,6 +48,26 @@ namespace lui
 		return backgroundColor_;
 	}
 
+	void LuiView::SetBorderWidth(int width)
+	{
+		borderWidth_ = width;
+	}
+
+	int LuiView::BorderWidth() const
+	{
+		return borderWidth_;
+	}
+
+	void LuiView::SetBorderColor(const LColor & color)
+	{
+		borderColor_ = color;
+	}
+
+	LColor LuiView::BorderColor() const
+	{
+		return borderColor_;
+	}
+
 	void LuiView::AddSubview(std::shared_ptr<LuiView> subview)
 	{
 		subviews_.push_back(subview);
@@ -63,7 +85,7 @@ namespace lui
 			return;
 		}
 		
-		canvas->DrawRect(prc + origin, LRectGraph(frame_+origin, backgroundColor_));
+		canvas->DrawRect(prc + origin, frame_+origin, LRectDecorate(backgroundColor_,borderWidth_,borderColor_));
 
 		// then the paint the subviews
 		for (auto subview : subviews_) {

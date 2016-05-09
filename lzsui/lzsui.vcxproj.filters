@@ -69,6 +69,12 @@
     <ClInclude Include="include\lzsui\lui-image-view.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\lzsui\l-image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\l-render-factory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\lui-application.cpp">
@@ -102,6 +108,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="core\lui-image-view.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\l-image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\l-render-factory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

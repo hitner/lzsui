@@ -127,7 +127,7 @@ namespace lui
 		unsigned char green;
 		unsigned char blue;
 		unsigned char alpha;
-		LColor() :red(0), green(0), blue(0), alpha(0) {}
+		LColor() :red(0), green(0), blue(0), alpha(0xFF) {}
 		LColor(unsigned int x) {
 			red = x >> 24;
 			green = 0x00FF & (x >> 16);
@@ -135,8 +135,17 @@ namespace lui
 			alpha = 0x00FF & x;
 		}
 
+		operator COLORREF () const{
+			return RGB(red, green, blue);
+		}
 		inline static LColor RedColor() {
-			return LColor(0xFF000000);
+			return LColor(0xFF0000FF);
+		}
+		inline static LColor GreenColor() {
+			return LColor(0x00FF00FF);
+		}
+		inline static LColor BlueColor() {
+			return LColor(0x0000FFFF);
 		}
 		inline static LColor TransparentColor() {
 			return LColor(0xFFFFFF00);

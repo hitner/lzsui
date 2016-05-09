@@ -23,8 +23,14 @@ namespace lui
 		void SetBackgroundColor(const LColor & color);
 		LColor BackgroundColor();
 
+		void SetBorderWidth(int width);
+		int BorderWidth()const;
+
+		void SetBorderColor(const LColor & color);
+		LColor BorderColor()const;
+
 		// origin :父view在canvas中的原点坐标
-		// rect ： 父view中的更新区域
+		// rect ： 父view中的更新区域,可以看出该view的兄弟view
 		virtual void DoPaint(std::shared_ptr<LICanvas> canvas, const LPoint & origin, const LRect & rect);
 		bool UpdateLayout();
 	protected:
@@ -36,6 +42,8 @@ namespace lui
 		std::wstring name_;
 		LRect frame_;
 		LColor backgroundColor_;
+		int borderWidth_;
+		LColor borderColor_;
 
 	};
 }

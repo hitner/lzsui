@@ -129,10 +129,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\l-bitmap.h" />
+    <ClInclude Include="core\l-render-factory.h" />
     <ClInclude Include="core\li-canvas.h" />
     <ClInclude Include="core\l-gdi-canvas.h" />
     <ClInclude Include="core\l-window-canvas.h" />
     <ClInclude Include="include\lzsui\l-common.h" />
+    <ClInclude Include="include\lzsui\l-image.h" />
     <ClInclude Include="include\lzsui\lui-application.h" />
     <ClInclude Include="include\lzsui\lui-image-view.h" />
     <ClInclude Include="include\lzsui\lui-library.h" />
@@ -149,6 +151,8 @@
   <ItemGroup>
     <ClCompile Include="core\l-bitmap.cpp" />
     <ClCompile Include="core\l-gdi-canvas.cpp" />
+    <ClCompile Include="core\l-image.cpp" />
+    <ClCompile Include="core\l-render-factory.cpp" />
     <ClCompile Include="core\l-window-canvas.cpp" />
     <ClCompile Include="core\lui-application.cpp" />
     <ClCompile Include="core\lui-image-view.cpp" />

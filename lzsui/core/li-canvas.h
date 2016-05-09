@@ -4,31 +4,39 @@
 
 namespace lui
 {
-	class LBitmap;
+	class LIImage {
+	public:
+		virtual LSize Size() = 0;
+	};
+
+	struct LPen {
+		int width;
+		LColor penColor;
+	};
+	struct LBrush {
+		LColor filledColor;
+	};
+
 	struct LLineGraph {
 
 	};
 
-	struct LRectGraph {
-		LRect rect;
+	struct LRectDecorate {
 		LColor filledColor;
 		int borderWidth;
 		LColor borderColor;
-		
-		LRectGraph(const LRect& rc, const LColor & fColor, int bw, const LColor & bColor)
-			: rect(rc), filledColor(fColor), borderWidth(bw), borderColor(bColor) {}
-		LRectGraph(const LRect & rc, const LColor & fColor = LColor::TransparentColor())
-			: rect(rc), filledColor(fColor), borderWidth(0) {}
+
+		LRectDecorate(const LColor & fColor)
+			: filledColor(fColor), borderWidth(0) {}
+		LRectDecorate(const LColor & fColor, int bw, const LColor & bColor)
+			: filledColor(fColor), borderWidth(bw), borderColor(bColor) {}
+	};
+	struct LRectDecorateEx {
+		LPen pen;
+		LBrush brush;
 	};
 
-	struct LRoundRectGraph :public LRectGraph {
-		LRoundRectGraph(const LRect & rc, int rw, int rh, const LColor & fColor = LColor::TransparentColor())
-			: LRectGraph(rc, fColor), roundWidth(rw), roundHeight(rh) {}
-		int roundWidth;
-		int roundHeight;
-	};
 
-	struct LEcillipseGraph;
 
 	class LICanvas
 	{
@@ -45,9 +53,12 @@ namespace lui
 
 		// filledColor can be nullptr,
 		// borderWidth can be 0
-		virtual bool DrawRect(const LRect & rect, const LRectGraph & rectGraph) = 0;
+		virtual bool DrawRect(const LRect & paintRC, const LRect & rect, const LRectDecorate & decorate) = 0;
 
-		virtual bool DrawRoundRect(const LRect & rect, const LRoundRectGraph & roundGraph) = 0;
+		//virtual bool DrawRect(const LRect & paintRC, const LRect & rect, const LRectDecorateEx & decorate) = 0;
+		//virtual bool DrawRoundRect(const LRect & rect, const LRoundRectGraph & roundGraph) = 0;
+
+
 		
 	};
 
