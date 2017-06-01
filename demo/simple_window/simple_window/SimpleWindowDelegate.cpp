@@ -18,10 +18,10 @@ void SimpleWindowDelegate::WillEnterGetMessageLoop(int nCmdShow)
 	std::shared_ptr<LuiView> bView(new LuiImageView(LRect(10, 10, 500, 400)));
 	aView->AddSubview(bView);
 
-	std::shared_ptr<LuiView> cc(new LuiView(LRect(530, 100, 30, 20)));
+	std::shared_ptr<LuiView> cc(new LuiView(LRect(530, 100, 30, 50)));
 	cc->SetBackgroundColor(LColor::TransparentColor());
-	cc->SetBorderColor(LColor::BlueColor());
-	cc->SetBorderWidth(5);
+	cc->SetBorderColor(LColor(0x00FF0088));
+	cc->SetBorderWidth(8);
 	aView->AddSubview(cc);
 
 	hostWindow_->SetView(aView);

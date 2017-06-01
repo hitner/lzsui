@@ -50,7 +50,8 @@ namespace lui
 		
 		::Rectangle(memDC.MemDC(), 0, 0, rect.width, rect.height);
 		bOK = ::BitBlt(hCompatibleDC_, rc.x, rc.y, rc.width, rc.height, memDC.MemDC(), 0, 0, SRCCOPY);
-		bOK = ::AlphaBlend(hCompatibleDC_,rc.x, rc.y, rc.width, rc.height, memDC.MemDC(),)
+		//BLENDFUNCTION ftn = { AC_SRC_OVER,0,1,AC_SRC_ALPHA };
+		//bOK = ::AlphaBlend(hCompatibleDC_, rc.x, rc.y, rc.width, rc.height, memDC.MemDC(),);
 		assert(bOK);
 		return false;
 	}

@@ -47,10 +47,11 @@ namespace lui
 		virtual void OnSize(LSize size) = 0;
 		//virtual void OnPaint(RECT rect) = 0;
 
+		///绘制BITMAP
 		//draw function
 		virtual bool DrawBitmap(const LRect & rect, HBITMAP bitmap, const LPoint & ori, BYTE alpha) = 0;
 		
-
+		///绘制矩形区域
 		// filledColor can be nullptr,
 		// borderWidth can be 0
 		virtual bool DrawRect(const LRect & paintRC, const LRect & rect, const LRectDecorate & decorate) = 0;

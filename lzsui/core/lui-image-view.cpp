@@ -23,7 +23,7 @@ namespace lui {
 			void * bmbit;
 			int bufSize = 1 * 1024 * 1024;
 			char * buf = new char[bufSize];// max 4M png
-			int readnum = read_file(L"E:\\lzsui\\prelive.png", buf, bufSize);
+			int readnum = read_file(L"E:\\mygit\\lzsui\\prelive.png", buf, bufSize);
 			int width, height;
 			char * decoded = fluid_decode(buf, readnum, &width, &height);
 			delete[] buf;

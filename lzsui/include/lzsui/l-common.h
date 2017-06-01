@@ -138,6 +138,9 @@ namespace lui
 		operator COLORREF () const{
 			return RGB(red, green, blue);
 		}
+		inline static LColor BlackColor() {
+			return LColor(0x000000FF);
+		}
 		inline static LColor RedColor() {
 			return LColor(0xFF0000FF);
 		}
